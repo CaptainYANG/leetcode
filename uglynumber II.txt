@@ -1,0 +1,35 @@
+//Focus on generating the ugly numbers instead of calling isUglyNumber everytime.
+public class Solution {
+    public int nthUglyNumber(int n) {
+        int[] uglyNumbers = new int[n];
+        int maxUgly = 1;
+        uglyNumbers[0] = maxUgly;
+        int multp2Index = 0;
+        int multp3Index = 0;
+        int multp5Index = 0;
+        for(int i = 1; i<n; i++){
+            maxUgly = min(uglyNumbers[multp2Index]*2,uglyNumbers[multp3Index]*3,uglyNumbers[multp5Index]*5);
+            uglyNumbers[i] = maxUgly;
+            if(uglyNumbers[multp2Index]*2 == maxUgly){
+                multp2Index += 1;
+            }
+            if(uglyNumbers[multp3Index]*3 == maxUgly){
+                multp3Index += 1;
+            }
+            if(uglyNumbers[multp5Index]*5 == maxUgly){
+                multp5Index += 1;
+            }
+        }
+        return maxUgly;
+    }
+    public int min(int a, int b, int c){
+        int mini = 0;
+        if(a<b){
+            mini = a;
+        }else{
+            mini = b;
+        }
+        if(mini>c) mini = c;
+        return mini;
+    }
+}
