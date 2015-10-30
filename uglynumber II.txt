@@ -3,6 +3,7 @@ public class Solution {
     public int nthUglyNumber(int n) {
         int[] uglyNumbers = new int[n];
         int maxUgly = 1;
+        //Three points
         uglyNumbers[0] = maxUgly;
         int multp2Index = 0;
         int multp3Index = 0;
