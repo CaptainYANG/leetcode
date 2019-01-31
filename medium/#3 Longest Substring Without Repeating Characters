@@ -1,0 +1,32 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        int longest = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(int i=0, j=0; j<n;j++) {
+            if(map.containsKey(s.charAt(j))) {
+                i=Math.max(map.get(s.charAt(j))+1, i);
+            }
+            longest = Math.max(longest,j-i+1);
+            map.put(s.charAt(j),j);
+        }
+        return longest;
+    }
+}
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        longest = 0
+        subs = ''
+        for c in s:
+            if c not in subs:
+                subs += c
+                longest = max(longest, len(subs))
+            else:
+                c_index = subs.index(c)
+                subs = subs[c_index+1:] + c
+        return longest
