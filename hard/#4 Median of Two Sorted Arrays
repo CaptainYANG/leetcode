@@ -1,0 +1,23 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n=nums1.length;
+        int m=nums2.length;
+        int len = n+m;
+        if(len%2==1) return findKth(nums1,0,nums2,0,len/2+1);
+        return (findKth(nums1,0,nums2,0,len/2)+findKth(nums1,0,nums2,0,len/2+1))/2.0;
+    }
+    
+    
+    double findKth(int[] a, int apos, int[] b, int bpos, int k) {
+        if (apos>=a.length) return b[bpos+k-1];
+        else if (bpos>=b.length) return a[apos+k-1];
+        if (k==1) return Math.min(a[apos], b[bpos]);
+        int akey = apos + k/2 - 1 < a.length ? a[apos + k/2 - 1] : Integer.MAX_VALUE;
+        int bkey = bpos + k/2 - 1 < b.length ? b[bpos + k/2 - 1] : Integer.MAX_VALUE;
+        if(akey<bkey){
+            return findKth(a,apos+k/2,b,bpos,k-k/2);
+        }else{
+            return findKth(a,apos,b,bpos+k/2,k-k/2);
+        }       
+    }
+}
