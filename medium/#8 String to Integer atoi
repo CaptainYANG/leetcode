@@ -1,0 +1,23 @@
+class Solution {
+    public int myAtoi(String str) {
+        String tstr = str.trim();
+        if (tstr == null || tstr.length() == 0 || (!Character.isDigit(tstr.charAt(0)) && tstr.charAt(0) != '-'&& tstr.charAt(0) != '+')) return 0;
+        int signed = 1;
+        if (tstr.charAt(0) == '+') {
+            signed = 1;
+            tstr = tstr.substring(1);
+        } else if (tstr.charAt(0) == '-') {
+            signed = -1;
+            tstr = tstr.substring(1);
+        }
+        int rst = 0;
+        for(int i=0; i<tstr.length();i++) {
+            if(!Character.isDigit(tstr.charAt(i))) break;
+            if (rst*signed > Integer.MAX_VALUE/10 || (rst*signed == Integer.MAX_VALUE/10 && (tstr.charAt(i) - '0') > 7)) return Integer.MAX_VALUE;
+            if (rst*signed < Integer.MIN_VALUE/10 || (rst*signed == Integer.MIN_VALUE/10 && (tstr.charAt(i) - '0') > 8)) return Integer.MIN_VALUE;
+            rst *= 10;
+            rst += tstr.charAt(i) - '0';
+        }
+        return rst * signed;
+    }
+}
